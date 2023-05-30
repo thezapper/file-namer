@@ -2,7 +2,9 @@
   export let idx: number;
   export let fileName: string;
 
-  let tokens = fileName.split(/[_. ]/);
+  let extentionDot = fileName.lastIndexOf(".");
+
+  let tokens = fileName.substring(0,extentionDot).split(/[_. ]/);
 
 </script>
 
@@ -19,10 +21,12 @@
 
 <style>
   .token {
-    border: 1px solid black;
+    /* border: 1px solid black; */
     display: inline;
-    padding: 5px;
-    margin-right: 2px;
+    padding: 0px;
+    background-color: rgb(181, 223, 241);
+    margin-right: 5px;
+    cursor: pointer;
   }
   .token-group {
     /* border: 1px solid purple; */

@@ -26,6 +26,9 @@
 
 <h1>File List Renamer</h1>
 
+<div>Tokeniser Characters</div>
+<div>' ' . _</div>
+
 <div>
   {#each fileList as  name, i}
     
