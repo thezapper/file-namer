@@ -6,6 +6,10 @@
 
   let tokens = fileName.substring(0,extentionDot).split(/[_. ]/);
 
+  let tokenClick = (tk: string) =>
+  {
+    console.log(tk);
+  }
 </script>
 
 <div class="item-group">
@@ -14,7 +18,12 @@
   </div>
   <div class="token-group">
     {#each tokens as tk, i}
-      <div class="token" id={`${idx}:${i}`}>{tk}</div>    
+      <div  class="token" 
+            id={`${idx}:${i}`}
+            on:click={() => tokenClick(tk)}
+            on:keydown={() => tokenClick(tk)}>
+        {tk}
+      </div>    
     {/each}
   </div>
 </div>
@@ -23,10 +32,11 @@
   .token {
     /* border: 1px solid black; */
     display: inline;
-    padding: 0px;
+    padding: 3px;
     background-color: rgb(181, 223, 241);
     margin-right: 5px;
     cursor: pointer;
+    border-radius: 5px;
   }
   .token-group {
     /* border: 1px solid purple; */
