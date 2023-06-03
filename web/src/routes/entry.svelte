@@ -1,4 +1,6 @@
 <script lang="ts">
+  import axios from "axios"
+
   export let idx: number;
   export let fileName: string;
 
@@ -22,12 +24,25 @@
     finalName += extention;
   }
 
-  let tokenClass = "token";
+  let rename = (i: number, newName: string) =>
+  {
+    axios.post('http://127.0.0.1:3000/rename', {
+      fileIndex: i,
+      name: newName
+      })
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }
+
 </script>
 
 <div class="item-group">
   <div>
-    {idx} : {fileName}
+    {idx+1} : {fileName}
   </div>
 
   <div class="token-group">
@@ -40,6 +55,7 @@
         {tk}
       </div>    
     {/each}
+    <div on:click={() => rename(idx, finalName) }>save</div>
   </div>
 
   <div>

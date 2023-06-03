@@ -7,8 +7,10 @@ const app = express()
 const port = 3000
 
 app.use(cors());
+app.use(express.json());
 
-app.get('/hello', (req, res) => {
+let fileList;
+app.get('/list', (req, res) => {
   //res.send({greet:"Hello World!"} )
   const folderPath = '../files';
 
@@ -18,7 +20,7 @@ app.get('/hello', (req, res) => {
   {
     if (fs.existsSync(dir)) 
     {
-      let fileList = fs.readdirSync(dir)
+      fileList = fs.readdirSync(dir)
 
       // console.log("\nCurrent directory filenames:");
       // fileList.forEach(file => {
@@ -27,18 +29,19 @@ app.get('/hello', (req, res) => {
 
       res.json({files:fileList} )
     }  
-    console.log(dir);
+    console.log("Files read");
   } 
   catch (err) 
   {
     res.json({error:"error"})
     console.log(err);
   }
+});
 
-
-  //res.json({greet:"Hello World!"} )
-  
-})
+app.post('/rename', (req, res) => {
+  let params = req.body;
+  console.log(params);
+});
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
