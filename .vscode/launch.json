@@ -17,7 +17,7 @@
     },
     {
       "name": "Server",
-      "program": "${workspaceFolder}/svr/app.js",
+      "program": "${workspaceFolder}/server/app.js",
       "request": "launch",
       "skipFiles": [
         "<node_internals>/**"
