@@ -5,12 +5,18 @@
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch-svr": "concurrently \"tsc --project ./tsconfig.json --watch\" \"nodemon ./dist/app.js\"",
+    "build-svr": "tsc --project ./tsconfig.json"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@types/node": "^20.2.5",
+    "concurrently": "^8.1.0",
     "cors": "^2.8.5",
-    "express": "^4.18.2"
+    "express": "^4.18.2",
+    "nodemon": "^2.0.22",
+    "typescript": "^5.1.3"
   }
 }
