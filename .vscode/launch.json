@@ -21,17 +21,19 @@
         "**/node_modules/**"
       ],
       "type": "chrome",
-      "url": "http://localhost:5173",
+      "url": "http://localhost:3001",
       "webRoot": "${workspaceFolder}"
     },
     {
       "name": "Server",
       "program": "${workspaceFolder}/server/src/app.ts",
       "request": "launch",
+      "type": "node",
+      "preLaunchTask": "tsc: build server",
+      "outFiles": ["${workspaceFolder}/server/dist/**/*.js"],
       "skipFiles": [
         "<node_internals>/**"
       ],
-      "type": "node"
     },
     {
       "name": "Python: Current File",
