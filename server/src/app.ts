@@ -51,6 +51,11 @@ app.get('/list', (req, res) => {
 app.post('/rename', (req, res) => {
   let params = req.body;
   console.log(params);
+
+  const folderPath = '../../files/';
+  let dir = path.join(__dirname, folderPath);
+
+  fs.renameSync(dir + params.orgName, dir + params.newName);
 });
 
 app.listen(port, () => {

@@ -24,11 +24,11 @@
     finalName += extention;
   }
 
-  let rename = (i: number, newName: string) =>
+  let rename = (orgName: string, newName: string) =>
   {
     axios.post('http://127.0.0.1:3000/rename', {
-      fileIndex: i,
-      name: newName
+      orgName: orgName,
+      newName: newName
       })
       .then(function (response) {
         console.log(response);
@@ -55,7 +55,7 @@
         {tk}
       </div>    
     {/each}
-    <div on:click={() => rename(idx, finalName) }>save</div>
+    <div on:click={() => rename(fileName, finalName) }>save</div>
   </div>
 
   <div>
@@ -73,6 +73,7 @@
     margin-right: 5px;
     cursor: pointer;
     border-radius: 5px;
+    
   }
   .token-rem {
     background-color: rgb(238, 50, 44);
@@ -82,8 +83,9 @@
     /* padding: 2px; */
   }
   .item-group {
-    border: 1px dashed red;
-    margin-bottom: 10px;
+    /* border: 1px dashed red; */
+    margin-bottom: 15px;
+    box-shadow: 2px 2px 8px 1px rgba(0, 0, 0, 0.2);
 
   }
 

@@ -1,6 +1,7 @@
 <script lang="ts">
   import { onMount } from "svelte";
   import Entry from "./entry.svelte";
+  import Delimiters from "./delimiters.svelte";
   import axios from "axios"
 
   let fileList: string[] = [];
@@ -42,8 +43,7 @@
 
 <h1>File List Renamer</h1>
 
-<div>Tokeniser Characters</div>
-<div>' ' . _ +++</div>
+<Delimiters></Delimiters>
 
 <div>
   {#each fileList as  name, i}
