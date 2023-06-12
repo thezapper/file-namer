@@ -4,7 +4,7 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js",
+    "start": "node ./src/app.ts",
     "test": "echo \"Error: no test specified\" && exit 1",
     "watch-svr": "concurrently \"tsc --project ./tsconfig.json --watch\" \"nodemon ./dist/app.js\"",
     "build-svr": "tsc --project ./tsconfig.json"

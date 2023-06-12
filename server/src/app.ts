@@ -30,14 +30,17 @@ app.get('/list', (req, res) => {
   {
     if (fs.existsSync(dir)) 
     {
-      fileList = fs.readdirSync(dir)
+      fileList = fs.readdirSync(dir, { withFileTypes: true })
 
+      const filesNames = fileList
+        .filter(dirent => dirent.isFile())
+        .map(dirent => dirent.name);
       // console.log("\nCurrent directory filenames:");
       // fileList.forEach(file => {
       //   console.log(file);
       // });
 
-      res.json({files:fileList} )
+      res.json({files:filesNames} )
     }  
     console.log("Files read");
   } 

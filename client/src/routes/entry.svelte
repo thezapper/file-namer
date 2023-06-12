@@ -13,11 +13,13 @@
 
   let tokenClick = (i: number, evt?: MouseEvent) =>
   {
-    console.log(tokens[i]);
+    // console.log(tokens[i]);
     if (evt?.ctrlKey === true) // remove token
       chosenTokens[i] = false;
-    else
-      chosenTokens[i] = true;
+    // else
+    //   chosenTokens[i] = true;
+
+    chosenTokens[i] = !chosenTokens[i];
 
     finalName = tokens.filter( (value, index) => chosenTokens[index] === true ).join(' ');
     
@@ -42,10 +44,12 @@
 
 <div class="item-group">
   <div>
-    {idx+1} : {fileName}
+    {idx+1}
   </div>
 
   <div class="token-group">
+    Input: 
+  
     {#each tokens as tk, i}      
       <div  
             class={(chosenTokens[i]) ? "token" : "token token-rem"} 
@@ -55,11 +59,17 @@
         {tk}
       </div>    
     {/each}
-    <div on:click={() => rename(fileName, finalName) }>save</div>
+  
+    <span>{extention}</span>
+
   </div>
 
-  <div>
-    {finalName}
+  <div class="token-group">
+    Output: {finalName}
+  </div>
+  
+  <div class="token save-btn" on:click={() => rename(fileName, finalName) }>
+    save
   </div>
 
 </div>
@@ -73,19 +83,24 @@
     margin-right: 5px;
     cursor: pointer;
     border-radius: 5px;
-    
+    color: black;
+  }
+  .save-btn {
+    padding: 10px;
+    margin: 5px;
   }
   .token-rem {
     background-color: rgb(238, 50, 44);
   }
   .token-group {
-    /* border: 1px solid purple; */
-    /* padding: 2px; */
+    margin: 10px;
   }
   .item-group {
     /* border: 1px dashed red; */
+    margin: 10px;
     margin-bottom: 15px;
     box-shadow: 2px 2px 8px 1px rgba(0, 0, 0, 0.2);
+    background-color: rgb(100, 132, 122);
 
   }
 
