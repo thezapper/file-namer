@@ -3,28 +3,33 @@
 </script>
 
 <div>Tokeniser Characters - TODO</div>
-<div>
-  <div class="tok-shortcut">' '</div>
-  <div class="tok-shortcut"> . </div>
-  <div class="tok-shortcut">_</div>
-  <div class="tok-shortcut">-</div>
+<div class="button-group">
+  <button>' '</button>
+  <button> . </button>
+  <button class="tok-shortcut">_</button>
+  <button class="tok-shortcut">-</button>
 </div>
 
 <style>
-  .tok-shortcut {
+  .button-group {
+    position: relative;
+    /* font-size: x-large; */
+    /* display: inline-block; */
+    /* width: 40px; */
+    /* height: 40px; */
+    /* text-align: center; */
+  }
+
+  button {
+    /* position: relative; */
     font-size: x-large;
-    border: 2px solid black;
     display: inline-block;
-    padding: 5px;
-    background-color: rgb(147, 223, 156);
-    margin: 5px;
-    cursor: pointer;
-    /* border-radius: 2px; */
-    /* box-shadow: 2px 2px 5px rgb(108, 108, 108); */
-    color: black;
-    width: 40px;
-    height: 40px;
+    width: 60px;
+    /* height:60px; */
     text-align: center;
+    padding: 5px;
+    margin: 5px;
+    aspect-ratio: 1;
   }
 
 </style>

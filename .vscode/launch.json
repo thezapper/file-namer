@@ -21,8 +21,8 @@
         "**/node_modules/**"
       ],
       "type": "chrome",
-      "url": "http://localhost:3001",
-      "webRoot": "${workspaceFolder}"
+      "url": "https://localhost:3030",
+      "webRoot": "${workspaceFolder}/client/src"
     },
     {
       "name": "Server",

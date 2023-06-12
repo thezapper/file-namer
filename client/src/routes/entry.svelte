@@ -68,9 +68,9 @@
     Output: {finalName}
   </div>
   
-  <div class="token save-btn" on:click={() => rename(fileName, finalName) }>
+  <button  on:click={() => rename(fileName, finalName) }>
     save
-  </div>
+  </button>
 
 </div>
 
@@ -86,10 +86,7 @@
     color: black;
     transition: background-color 1.0s ease;
   }
-  .save-btn {
-    padding: 10px;
-    margin: 5px;
-  }
+
   .token-rem {
     background-color: rgb(137, 137, 137);
     /* color: rgb(129, 114, 114); */
@@ -104,7 +101,7 @@
     margin-bottom: 15px;
     box-shadow: 3px 3px 1px 0px rgba(0, 0, 0, 0.8);
     background-color: rgb(237, 237, 100);
-    border-radius: 4px;
+    border-radius: 6px;
     color: black;
   }
 
