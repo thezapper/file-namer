@@ -51,6 +51,15 @@ app.get('/list', (req, res) => {
   }
 });
 
+app.post('/set-file-dir', (req, res) => {
+  let params = req.body;
+  console.log(params);
+
+  const folderPath = '../../files/';
+  let dir = path.join(__dirname, folderPath);
+
+});
+
 app.post('/rename', (req, res) => {
   let params = req.body;
   console.log(params);

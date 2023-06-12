@@ -3,6 +3,7 @@
   import Entry from "./entry.svelte";
   import Delimiters from "./delimiters.svelte";
   import Patterns from "./patterns.svelte";
+  import FileSelect from "./file-select.svelte";
   import axios from "axios"
 
   let fileList: string[] = [];
@@ -40,6 +41,8 @@
 </script>
 
 <h1>File List Renamer</h1>
+
+<FileSelect />
 
 <Delimiters></Delimiters>
 

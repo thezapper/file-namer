@@ -76,21 +76,24 @@
 
 <style>
   .token {
-    /* border: 1px solid black; */
+    border: 1px solid black;
     display: inline-block;
     padding: 5px;
-    background-color: rgb(181, 223, 241);
+    background-color: rgb(174, 60, 240);
     margin-right: 5px;
     cursor: pointer;
-    border-radius: 5px;
+    /* border-radius: 5px; */
     color: black;
+    transition: background-color 1.0s ease;
   }
   .save-btn {
     padding: 10px;
     margin: 5px;
   }
   .token-rem {
-    background-color: rgb(238, 50, 44);
+    background-color: rgb(137, 137, 137);
+    /* color: rgb(129, 114, 114); */
+    transition: background-color 1.0s ease;
   }
   .token-group {
     margin: 10px;
@@ -99,8 +102,9 @@
     border: 2px solid black;
     margin: 10px;
     margin-bottom: 15px;
-    box-shadow: 3px 3px 2px 0px rgba(0, 0, 0, 0.8);
+    box-shadow: 3px 3px 1px 0px rgba(0, 0, 0, 0.8);
     background-color: rgb(237, 237, 100);
+    border-radius: 4px;
     color: black;
   }
 
