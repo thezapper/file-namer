@@ -96,12 +96,12 @@
     margin: 10px;
   }
   .item-group {
-    /* border: 1px dashed red; */
+    border: 2px solid black;
     margin: 10px;
     margin-bottom: 15px;
-    box-shadow: 2px 2px 8px 1px rgba(0, 0, 0, 0.2);
-    background-color: rgb(100, 132, 122);
-
+    box-shadow: 3px 3px 2px 0px rgba(0, 0, 0, 0.8);
+    background-color: rgb(237, 237, 100);
+    color: black;
   }
 
   div {

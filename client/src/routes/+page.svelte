@@ -9,36 +9,32 @@
 
   async function getData()
   {
-    try 
-    {
-      const params = {
+    const params = {
         mode:"cors", 
         headers: { "Content-Type": "application/json" } 
       }
-      const response = await axios.get('http://127.0.0.1:3000/list', params);
-      fileList = response.data.files;
 
-      fileList.forEach( (value: string) => console.log(value) );
-    } 
-    catch (error) 
-    {
-      console.error(error);
-    }
+    return axios.get('http://127.0.0.1:3000/list', params)
+    .then( (response) => {
+      console.log("Promise resolved:");
+      fileList = response.data.files;
+      // console.dir(data);
+    })
+    .catch( (err) => {
+      console.log("Error:", err);
+
+    })
+    .finally( () => {
+      console.log("And finally...");
+    })
     
-    // let response = await fetch( "http://127.0.0.1:3000/list", {mode:"cors", headers: { "Content-Type": "application/json" } } );
-    // try
-    // {
-    //   let info = await response.json();
-    //   fileList = info.files;
-    //   console.log(info);
-    // } catch(e)
-    // {
-    //   console.log(e);
-    // }
   }
 
-  onMount(async() => {
+  onMount( () => {
+    console.log("Pre getData");
     getData();
+    console.log("Post getData");
+
   })
 
 </script>
