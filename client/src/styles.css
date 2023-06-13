@@ -1,0 +1,48 @@
+
+
+body {
+  font-family: "Ubuntu", sans-serif;
+  color: whitesmoke;
+  background-color: rgb(210, 99, 232);
+  /* background: rgb(232, 78, 237); */
+  /* background: linear-gradient(90deg, rgb(148, 144, 144) 0%, rgb(88, 92, 89) 52%, rgb(63, 84, 43) 100%); */
+  margin: 0;
+  height: 100%;
+}
+
+button {
+  font-family: "Ubuntu", sans-serif;
+  background-color: rgb(110, 232, 99);
+  border: 2px solid black;
+  color: black;
+  padding: 16px 32px;
+  margin: 4px 2px;
+  cursor: pointer;
+
+  transition: box-shadow 0.5s ease, filter 0.5s ease;
+  filter: none;
+  box-shadow: none;
+}
+
+button:hover {
+  transition: all 0.25s ease;
+  filter: brightness(1.5);
+  box-shadow: 3px 3px 1px 0px rgba(0, 0, 0, 0.8);
+}
+
+button:active {
+  box-shadow: inset 3px 3px 1px 0px rgba(0, 0, 0, 0.8);
+}
+
+input[type=text] {
+  border: 2px solid black;
+  height: 40px;
+}
+input[type=text]:focus {
+  /* border: 3px solid black; */
+  border-radius: 0;
+  outline: none;
+  transition: box-shadow 0.5s ease;
+  box-shadow:  3px 3px 1px 0px rgba(0, 0, 0, 0.8);
+
+}

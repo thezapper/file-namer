@@ -1,6 +1,6 @@
 <script lang="ts">
   import { onMount } from "svelte";
-  import Entry from "./entry.svelte";
+  import FileList from "./file-list.svelte";
   import Delimiters from "./delimiters.svelte";
   import Patterns from "./patterns.svelte";
   import FileSelect from "./file-select.svelte";
@@ -38,20 +38,28 @@
 
   })
 
+  let delims = '-';
+
+  // $: delims, fileList = [...fileList];
 </script>
+
 
 <h1>File List Renamer</h1>
 
 <FileSelect />
 
-<Delimiters></Delimiters>
+<Delimiters bind:defaultDelims={delims}></Delimiters>
 
 <Patterns></Patterns>
 
-<div>
+{#key delims}
+  <FileList delims={delims} fileList={fileList}/>
+{/key}
+
+<!-- <div id={delims}>
   {#each fileList as  name, i}
     
-  <Entry idx={i} fileName={name} />
+    <Entry idx={i} fileName={name} delims={delims}/>
     
 	{/each}
-</div>
+</div> -->

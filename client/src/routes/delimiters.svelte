@@ -1,27 +1,67 @@
 <script lang="ts">
 
+  export let defaultDelims = ""
+  let delims = defaultDelims.split('');
+
+  let textChanged = (evt: Event) =>
+  {
+    let text = evt.currentTarget?.value;
+
+    delims = text.split('');
+    let idx = delims.findIndex((v:string) => v === ' ')
+    if (idx > -1)
+    {
+      delims[idx] = `' '`
+    }
+    console.log(idx);
+  }
+
 </script>
 
-<div>Tokeniser Characters - TODO</div>
-<div class="button-group">
-  <button>' '</button>
-  <button> . </button>
-  <button class="tok-shortcut">_</button>
-  <button class="tok-shortcut">-</button>
+<div class="comp-group">
+
+  <div>Tokeniser Characters</div>
+  
+  <input type="text" bind:value={defaultDelims} on:input={(evt) => textChanged(evt)}/>
+  
+  <div class="button-group">
+    {#each delims as d}
+      <button>{d}</button>
+    {/each}
+  </div>
+
 </div>
 
 <style>
   .button-group {
     position: relative;
+    margin-top: 15px;
+  }
+
+  .comp-group {
+    /* position: relative; */
     /* font-size: x-large; */
     /* display: inline-block; */
-    /* width: 40px; */
-    /* height: 40px; */
+    /* width: 60px; */
+    /* height:60px; */
     /* text-align: center; */
+    border: 2px solid black;
+    box-shadow: 3px 3px 1px 0px rgba(0, 0, 0, 0.8);
+    background-color: rgb(81, 206, 237);
+    border-radius: 6px;
+    padding: 15px;
+    margin: 15px;
+    width: 50%;
+  }
+
+  input[type=text] {
+    font-family: "Code", sans-serif;
+    font-size: x-large;
   }
 
   button {
     /* position: relative; */
+    font-family: "Code", sans-serif;
     font-size: x-large;
     display: inline-block;
     width: 60px;

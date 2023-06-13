@@ -3,11 +3,19 @@
 
   export let idx: number;
   export let fileName: string;
+  export let delims: string;
+
+  console.log(" entry update" , delims);
+
+  let regex = new RegExp('[' + delims + ']');
 
   let extentionDot = fileName.lastIndexOf(".");
   let extention = fileName.substring(extentionDot, fileName.length);
-  let tokens = fileName.substring(0,extentionDot).split(/[_. ]/).filter(word => word.length > 0);
+  let tokens = fileName.substring(0,extentionDot).split(regex).filter(word => word.length > 0);
 
+  let splitWord = tokens[0].split('');
+
+  //tokens = tokens.concat(splitWord);
   let finalName = tokens.join(' ') + extention;
   let chosenTokens: boolean[] = new Array(tokens.length).fill(true);
 
@@ -42,6 +50,7 @@
 
 </script>
 
+
 <div class="item-group">
   <div>
     {idx+1}
@@ -74,13 +83,14 @@
 
 </div>
 
-<style>
+<style src="../../styles.css">
   .token {
+    font-family: "Code", sans-serif;
     border: 1px solid black;
     display: inline-block;
-    padding: 5px;
+    padding: 0px 5px 0px 5px;
     background-color: rgb(174, 60, 240);
-    margin-right: 5px;
+    margin-right: 3px;
     cursor: pointer;
     /* border-radius: 5px; */
     color: black;
@@ -100,7 +110,7 @@
     margin: 10px;
     margin-bottom: 15px;
     box-shadow: 3px 3px 1px 0px rgba(0, 0, 0, 0.8);
-    background-color: rgb(237, 237, 100);
+    background-color: rgb(56, 219, 61);
     border-radius: 6px;
     color: black;
   }
