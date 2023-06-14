@@ -38,9 +38,8 @@
 
   })
 
-  let delims = '-';
+  let delims = '-. ';
 
-  // $: delims, fileList = [...fileList];
 </script>
 
 
@@ -52,14 +51,7 @@
 
 <Patterns></Patterns>
 
+<!-- redraw the list if the delims change -->
 {#key delims}
   <FileList delims={delims} fileList={fileList}/>
 {/key}
-
-<!-- <div id={delims}>
-  {#each fileList as  name, i}
-    
-    <Entry idx={i} fileName={name} delims={delims}/>
-    
-	{/each}
-</div> -->

@@ -94,13 +94,13 @@
     cursor: pointer;
     /* border-radius: 5px; */
     color: black;
-    transition: background-color 1.0s ease;
+    transition: background-color 1.0s ease, color 1.0s ease;
   }
 
   .token-rem {
-    background-color: rgb(137, 137, 137);
-    /* color: rgb(129, 114, 114); */
-    transition: background-color 1.0s ease;
+    background-color: rgb(101, 148, 96);
+    color: rgb(96, 96, 96);
+    transition: all 1.0s ease;
   }
   .token-group {
     margin: 10px;

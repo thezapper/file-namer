@@ -5,15 +5,27 @@
 
   let textChanged = (evt: Event) =>
   {
-    let text = evt.currentTarget?.value;
+    let text = (evt.currentTarget as HTMLInputElement )?.value;
 
     delims = text.split('');
-    let idx = delims.findIndex((v:string) => v === ' ')
-    if (idx > -1)
-    {
-      delims[idx] = `' '`
-    }
-    console.log(idx);
+    // If one of the delimimiters is the space character, swap it for ' '
+    // let idx = delims.findIndex((v:string) => v === ' ')
+    // if (idx > -1)
+    // {
+    //   delims[idx] = `' '`
+    // }
+    // console.log(idx);
+  }
+
+  let buttonClick = (evt: MouseEvent) =>
+  {
+    let btn = evt.target as HTMLButtonElement;
+    let idx: number = Number(btn.name);
+    let char = delims[idx];
+    
+    defaultDelims = defaultDelims.replace(char, '');
+    delims = defaultDelims.split('');
+    console.log(defaultDelims);
   }
 
 </script>
@@ -24,9 +36,11 @@
   
   <input type="text" bind:value={defaultDelims} on:input={(evt) => textChanged(evt)}/>
   
+  <div>Quick Access - click to remove</div>
+
   <div class="button-group">
-    {#each delims as d}
-      <button>{d}</button>
+    {#each delims as d,idx}
+      <button on:click={(evt) => buttonClick(evt)} name={idx.toString()}>{d === ' ' ? `' '` : d}</button>
     {/each}
   </div>
 

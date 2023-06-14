@@ -6,7 +6,7 @@ import basicSsl from '@vitejs/plugin-basic-ssl'
 export default defineConfig({
   plugins: [sveltekit(), basicSsl()],
   server: {
-    port: 3030,
+    // port: 3030,
     host: "127.0.0.1",
     strictPort: true,
 

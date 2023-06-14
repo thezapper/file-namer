@@ -3,7 +3,8 @@
 	"version": "0.0.1",
 	"private": true,
 	"scripts": {
-		"start": "vite dev --port 3030 --https",
+		"start": "vite dev --port 3001",
+		"https": "vite dev --port 3030 --https",
 		"serve": "node ../server/app.js",
 		"build": "vite build",
 		"preview": "vite preview",
