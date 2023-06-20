@@ -1,37 +1,128 @@
 <script lang="ts">
   import axios from "axios"
+  // import { createEventDispatcher } from 'svelte';
+  import { repeatedWords } from './stores'
+  import { beforeUpdate } from "svelte";
+  import { tokenList } from "./token-list";
 
   export let idx: number;
   export let fileName: string;
   export let delims: string;
-
-  console.log(" entry update" , delims);
+  
+  // const dispatch = createEventDispatcher();
 
   let regex = new RegExp('[' + delims + ']');
-
   let extentionDot = fileName.lastIndexOf(".");
   let extention = fileName.substring(extentionDot, fileName.length);
   let tokens = fileName.substring(0,extentionDot).split(regex).filter(word => word.length > 0);
 
-  let splitWord = tokens[0].split('');
-
-  //tokens = tokens.concat(splitWord);
   let finalName = tokens.join(' ') + extention;
-  let chosenTokens: boolean[] = new Array(tokens.length).fill(true);
+  let chosenTokens:  boolean[] = new Array(tokens.length).fill(null);
+  let patternTokens: boolean[] | null[] = new Array(tokens.length).fill(null);
+  let visibleTokens: boolean[] | null[] = new Array(tokens.length).fill(true);
+
+  let ignoreTokens: Set<string>;
+
+  let tokenRtClick = (i: number, evt?: MouseEvent) =>
+  {
+    let updateSet= (theSet: Set<string>) => {
+      let tok = tokens[i];
+      if (theSet.has(tok))
+      {
+        theSet.delete(tok);
+
+        tokens.forEach( (token, idx) => {
+        if (tok === token)
+          chosenTokens[idx] = true;
+      })
+      }
+      else
+      {
+        theSet.add(tok);
+      }
+
+      return theSet;
+    }
+
+    repeatedWords.update( updateSet );
+
+    evt?.preventDefault();
+  }
+
+  let rebuild = () =>
+  {
+    // regenerate the selected token list before render
+    // loop through each ignore token
+    tokens.forEach( (token, idx) => 
+    {
+      // visible toke to whatever the pattern says
+      if (patternTokens[idx] != null)
+        visibleTokens[idx] = patternTokens[idx];
+
+      if (chosenTokens[idx] != null)
+        visibleTokens[idx] = chosenTokens[idx];
+  
+      // but if the pattern and individual selection differ,
+      // use the individual
+      if (patternTokens[idx] != chosenTokens[idx])
+      {
+      }
+
+    })
+    
+    finalName = tokens.filter( (value, index) => visibleTokens[index] === true ).join(' ') + extention;
+  }
+  
+  // Update the repeated word list when it's changed from the patterns component
+  // This will be for removing an item
+  let theOldSet: Set<string>;
+  repeatedWords.subscribe( (theNewSet) =>  
+  {
+      // loop through each ignore token
+    // theNewSet.forEach( (ignore) => {
+    //   // and set corresponding name token to ignore
+    //   tokens.forEach( (token, idx) => {
+    //     if (ignore === token)
+    //       patternTokens[idx] = false;
+    //     else
+    //       patternTokens[idx] = null;
+
+    //   })
+    // })
+
+    tokens.forEach( (token, idx) => {
+      if (theNewSet.has(token))
+        patternTokens[idx] = false;
+      else
+        patternTokens[idx] = null;
+    })
+
+    theOldSet = new Set(theNewSet);
+
+    rebuild();
+    visibleTokens = visibleTokens;
+
+
+    //finalName = tokens.filter( (value, index) => chosenTokens[index] === true ).join(' ') + extention;
+  })
 
   let tokenClick = (i: number, evt?: MouseEvent) =>
   {
-    // console.log(tokens[i]);
     if (evt?.ctrlKey === true) // remove token
       chosenTokens[i] = false;
-    // else
-    //   chosenTokens[i] = true;
 
-    chosenTokens[i] = !chosenTokens[i];
+    // not clicked or set by pattern - hide it
+    if (chosenTokens[i] === null && patternTokens[i] === null)
+      chosenTokens[i] = false;
+    // not clicked, but has been set by pattern - show it
+    else if (chosenTokens[i] === null && patternTokens[i] === false)  
+      chosenTokens[i] = true;
+    else
+      chosenTokens[i] = !chosenTokens[i];
 
-    finalName = tokens.filter( (value, index) => chosenTokens[index] === true ).join(' ');
-    
-    finalName += extention;
+    rebuild();
+    visibleTokens = visibleTokens;
+    //finalName = tokens.filter( (value, index) => chosenTokens[index] === true ).join(' ') + extention;
   }
 
   let rename = (orgName: string, newName: string) =>
@@ -48,22 +139,28 @@
       });
   }
 
+  // build the visible list
+  // beforeUpdate ( ()=>
+  // {
+  //   rebuild();
+  // })
+
 </script>
 
 
 <div class="item-group">
-  <div>
+  <div class="offset-title">
     {idx+1}
   </div>
 
   <div class="token-group">
     Input: 
-  
     {#each tokens as tk, i}      
       <div  
-            class={(chosenTokens[i]) ? "token" : "token token-rem"} 
+            class={ (visibleTokens[i] ) ? "token" : "token token-rem" } 
             id={`${idx}:${i}`}
             on:click={(evt) => tokenClick(i, evt)}
+            on:contextmenu={(evt) => tokenRtClick(i, evt)}
             on:keydown={() => tokenClick(i, undefined)}>
         {tk}
       </div>    
@@ -106,6 +203,7 @@
     margin: 10px;
   }
   .item-group {
+    position: relative;
     border: 2px solid black;
     margin: 10px;
     margin-bottom: 15px;

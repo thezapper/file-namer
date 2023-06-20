@@ -5,7 +5,7 @@
   import Patterns from "./patterns.svelte";
   import FileSelect from "./file-select.svelte";
   import axios from "axios"
-
+  
   let fileList: string[] = [];
 
   async function getData()
@@ -39,19 +39,23 @@
   })
 
   let delims = '-. ';
+  
 
 </script>
 
 
 <h1>File List Renamer</h1>
+<div>
+  <FileSelect />
 
-<FileSelect />
+</div>
 
-<Delimiters bind:defaultDelims={delims}></Delimiters>
-
-<Patterns></Patterns>
+<div class="comp-cont">
+  <Delimiters bind:defaultDelims={delims}></Delimiters>
+  <Patterns></Patterns>
+</div>
 
 <!-- redraw the list if the delims change -->
 {#key delims}
-  <FileList delims={delims} fileList={fileList}/>
+  <FileList delims={delims} fileList={fileList} addMode={false} />
 {/key}

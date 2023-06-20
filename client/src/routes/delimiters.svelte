@@ -32,7 +32,7 @@
 
 <div class="comp-group">
 
-  <div>Tokeniser Characters</div>
+  <div class="offset-title" >Tokeniser Characters</div>
   
   <input type="text" bind:value={defaultDelims} on:input={(evt) => textChanged(evt)}/>
   
@@ -47,25 +47,11 @@
 </div>
 
 <style>
+  
+
   .button-group {
     position: relative;
     margin-top: 15px;
-  }
-
-  .comp-group {
-    /* position: relative; */
-    /* font-size: x-large; */
-    /* display: inline-block; */
-    /* width: 60px; */
-    /* height:60px; */
-    /* text-align: center; */
-    border: 2px solid black;
-    box-shadow: 3px 3px 1px 0px rgba(0, 0, 0, 0.8);
-    background-color: rgb(81, 206, 237);
-    border-radius: 6px;
-    padding: 15px;
-    margin: 15px;
-    width: 50%;
   }
 
   input[type=text] {
