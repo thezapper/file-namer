@@ -1,4 +1,12 @@
+@font-face {
+  font-family: Ubuntu;
+  src: url("/Ubuntu-Regular.ttf");
+}
 
+@font-face {
+  font-family: Code;
+  src: url("/JetBrainsMono-Regular.ttf");
+}
 
 body {
   font-family: "Ubuntu", sans-serif;

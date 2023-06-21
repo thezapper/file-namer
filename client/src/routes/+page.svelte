@@ -1,4 +1,5 @@
 <script lang="ts">
+  import '../styles.css'
   import { onMount } from "svelte";
   import FileList from "./file-list.svelte";
   import Delimiters from "./delimiters.svelte";
@@ -42,7 +43,6 @@
   
 
 </script>
-
 
 <h1>File List Renamer</h1>
 <div>
