@@ -2,26 +2,17 @@
   import axios from "axios"
   // import { createEventDispatcher } from 'svelte';
   import { repeatedWords } from './stores'
-  import { beforeUpdate } from "svelte";
   import { tokenList } from "./token-list";
 
   export let idx: number;
   export let fileName: string;
   export let delims: string;
   
-  // const dispatch = createEventDispatcher();
-
-  let regex = new RegExp('[' + delims + ']');
-  let extentionDot = fileName.lastIndexOf(".");
-  let extention = fileName.substring(extentionDot, fileName.length);
-  let tokens = fileName.substring(0,extentionDot).split(regex).filter(word => word.length > 0);
-
-  let finalName = tokens.join(' ') + extention;
-  let chosenTokens:  boolean[] = new Array(tokens.length).fill(null);
-  let patternTokens: boolean[] | null[] = new Array(tokens.length).fill(null);
-  let visibleTokens: boolean[] | null[] = new Array(tokens.length).fill(true);
-
-  let ignoreTokens: Set<string>;
+  let visibleTokens: boolean[];
+  
+  let filePhrase = new tokenList(fileName, delims);
+  let finalName = filePhrase.generateFilename();
+  let tokens = filePhrase.tokens;
 
   let tokenRtClick = (i: number, evt?: MouseEvent) =>
   {
@@ -30,11 +21,6 @@
       if (theSet.has(tok))
       {
         theSet.delete(tok);
-
-        tokens.forEach( (token, idx) => {
-        if (tok === token)
-          chosenTokens[idx] = true;
-      })
       }
       else
       {
@@ -49,80 +35,17 @@
     evt?.preventDefault();
   }
 
-  let rebuild = () =>
-  {
-    // regenerate the selected token list before render
-    // loop through each ignore token
-    tokens.forEach( (token, idx) => 
-    {
-      // visible toke to whatever the pattern says
-      if (patternTokens[idx] != null)
-        visibleTokens[idx] = patternTokens[idx];
-
-      if (chosenTokens[idx] != null)
-        visibleTokens[idx] = chosenTokens[idx];
-  
-      // but if the pattern and individual selection differ,
-      // use the individual
-      if (patternTokens[idx] != chosenTokens[idx])
-      {
-      }
-
-    })
-    
-    finalName = tokens.filter( (value, index) => visibleTokens[index] === true ).join(' ') + extention;
-  }
-  
   // Update the repeated word list when it's changed from the patterns component
-  // This will be for removing an item
-  let theOldSet: Set<string>;
   repeatedWords.subscribe( (theNewSet) =>  
   {
-      // loop through each ignore token
-    // theNewSet.forEach( (ignore) => {
-    //   // and set corresponding name token to ignore
-    //   tokens.forEach( (token, idx) => {
-    //     if (ignore === token)
-    //       patternTokens[idx] = false;
-    //     else
-    //       patternTokens[idx] = null;
-
-    //   })
-    // })
-
-    tokens.forEach( (token, idx) => {
-      if (theNewSet.has(token))
-        patternTokens[idx] = false;
-      else
-        patternTokens[idx] = null;
-    })
-
-    theOldSet = new Set(theNewSet);
-
-    rebuild();
-    visibleTokens = visibleTokens;
-
-
-    //finalName = tokens.filter( (value, index) => chosenTokens[index] === true ).join(' ') + extention;
+    visibleTokens = filePhrase.generateBoolList();
+    finalName = filePhrase.generateFilename();
   })
 
   let tokenClick = (i: number, evt?: MouseEvent) =>
   {
-    if (evt?.ctrlKey === true) // remove token
-      chosenTokens[i] = false;
-
-    // not clicked or set by pattern - hide it
-    if (chosenTokens[i] === null && patternTokens[i] === null)
-      chosenTokens[i] = false;
-    // not clicked, but has been set by pattern - show it
-    else if (chosenTokens[i] === null && patternTokens[i] === false)  
-      chosenTokens[i] = true;
-    else
-      chosenTokens[i] = !chosenTokens[i];
-
-    rebuild();
-    visibleTokens = visibleTokens;
-    //finalName = tokens.filter( (value, index) => chosenTokens[index] === true ).join(' ') + extention;
+    visibleTokens = filePhrase.loneToken(i);
+    finalName = filePhrase.generateFilename();
   }
 
   let rename = (orgName: string, newName: string) =>
@@ -138,12 +61,6 @@
         console.log(error);
       });
   }
-
-  // build the visible list
-  // beforeUpdate ( ()=>
-  // {
-  //   rebuild();
-  // })
 
 </script>
 
@@ -166,7 +83,7 @@
       </div>    
     {/each}
   
-    <span>{extention}</span>
+    <span>{filePhrase.extension}</span>
 
   </div>
 
@@ -186,7 +103,7 @@
     border: 1px solid black;
     display: inline-block;
     padding: 0px 5px 0px 5px;
-    background-color: rgb(174, 60, 240);
+    background-color: rgb(60, 234, 240);
     margin-right: 3px;
     cursor: pointer;
     /* border-radius: 5px; */
@@ -208,7 +125,7 @@
     margin: 10px;
     margin-bottom: 15px;
     box-shadow: 3px 3px 1px 0px rgba(0, 0, 0, 0.8);
-    background-color: rgb(56, 219, 61);
+    background-color: rgb(56, 127, 219);
     border-radius: 6px;
     color: black;
   }
