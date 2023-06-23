@@ -3,7 +3,7 @@
   "build": {
     "beforeBuildCommand": "npm run build",
     "beforeDevCommand": "npm start",
-    "devPath": "http://localhost:3001",
+    "devPath": "https://localhost:3001",
     "distDir": "../build"
   },
   "package": {
@@ -15,7 +15,7 @@
       "all": false
     },
     "bundle": {
-      "active": true,
+      "active": false,
       "category": "DeveloperTool",
       "copyright": "",
       "deb": {
