@@ -3,8 +3,9 @@
   "build": {
     "beforeBuildCommand": "npm run build",
     "beforeDevCommand": "npm start",
-    "devPath": "https://localhost:3001",
-    "distDir": "../build"
+    "devPath": "http://localhost:3001",
+    "distDir": "../build",
+    "withGlobalTauri": true
   },
   "package": {
     "productName": "file-namer",
@@ -12,7 +13,30 @@
   },
   "tauri": {
     "allowlist": {
-      "all": false
+      "all": false,
+      "fs": {
+        "all": false,
+        "copyFile": false,
+        "createDir": false,
+        "exists": true,
+        "readDir": true,
+        "readFile": true,
+        "removeDir": false,
+        "removeFile": false,
+        "renameFile": true,
+        "scope": [
+          "**"
+        ],
+        "writeFile": true
+      },
+      "dialog": {
+        "all": false,
+        "ask": false,
+        "confirm": false,
+        "message": false,
+        "open": true,
+        "save": false
+      }
     },
     "bundle": {
       "active": false,
@@ -57,9 +81,9 @@
       {
         "fullscreen": false,
         "height": 600,
+        "width": 800,
         "resizable": true,
-        "title": "File Namer",
-        "width": 800
+        "title": "File Namer"
       }
     ]
   }

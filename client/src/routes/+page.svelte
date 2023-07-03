@@ -1,61 +1,61 @@
 <script lang="ts">
-  import '../styles.css'
+  import "../styles.css";
   import { onMount } from "svelte";
   import FileList from "./file-list.svelte";
   import Delimiters from "./delimiters.svelte";
   import Patterns from "./patterns.svelte";
   import FileSelect from "./file-select.svelte";
-  import axios from "axios"
-  
+  import axios from "axios";
+
+  import { readDir, BaseDirectory } from "@tauri-apps/api/fs";
+  import { invoke } from '@tauri-apps/api/tauri';
+  //const invoke = window.__TAURI__.invoke
+
   let fileList: string[] = [];
 
-  async function getData()
-  {
+
+  async function getData() {
     const params = {
-        mode:"cors", 
-        headers: { "Content-Type": "application/json" } 
-      }
+      mode: "cors",
+      headers: { "Content-Type": "application/json" },
+    };
 
-    return axios.get('http://127.0.0.1:3000/list', params)
-    .then( (response) => {
-      console.log("Promise resolved:");
-      fileList = response.data.files;
-      // console.dir(data);
-    })
-    .catch( (err) => {
-      console.log("Error:", err);
+    invoke('my_custom_command', { msg: 'Hello!' })
 
-    })
-    .finally( () => {
-      console.log("And finally...");
-    })
-    
+    return axios
+      .get("http://127.0.0.1:3000/list", params)
+      .then((response) => {
+        console.log("Promise resolved:");
+        fileList = response.data.files;
+        // console.dir(data);
+      })
+      .catch((err) => {
+        console.log("Error:", err);
+      })
+      .finally(() => {
+        console.log("And finally...");
+      });
   }
 
-  onMount( () => {
+  onMount(() => {
     console.log("Pre getData");
     getData();
     console.log("Post getData");
+  });
 
-  })
-
-  let delims = '-. ';
-  
-
+  let delims = "-. ";
 </script>
 
-<h1>File List Renamer</h1>
 <div>
   <FileSelect />
-
 </div>
 
 <div class="comp-cont">
-  <Delimiters bind:defaultDelims={delims}></Delimiters>
-  <Patterns></Patterns>
+  <Delimiters bind:defaultDelims={delims} />
+  <Patterns />
 </div>
 
 <!-- redraw the list if the delims change -->
 {#key delims}
-  <FileList delims={delims} fileList={fileList} addMode={false} />
+  <FileList {delims} {fileList} addMode={false} />
 {/key}

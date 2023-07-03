@@ -1,0 +1,9 @@
+{
+  "editor.formatOnSave": true,
+  "rust-analyzer.linkedProjects": [
+    "./client/src-tauri/Cargo.toml"
+  ],
+  "editor.formatOnSaveMode": "modifications",
+  "eslint.format.enable": true,
+  "editor.tabSize": 2
+}
