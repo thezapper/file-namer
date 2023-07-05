@@ -1,15 +1,25 @@
 <script lang="ts">
   import { onMount } from "svelte";
   import { open } from '@tauri-apps/api/dialog';
+  import { fileNames } from './stores';
 
-  let theWindow: any;
+  // let theWindow: any;
+  // let fileElem: HTMLInputElement | null;
 
-  let fileElem: HTMLInputElement | null;
+  //let fileNames: string[];
   onMount( () => {
 
     })
 
-     
+    function extractFileName(path: string) : string
+    {
+      let lastSlash = path.lastIndexOf('\\');
+      if (lastSlash > -1)
+        return path.substring(lastSlash + 1);
+
+      return "ERROR";
+    }
+
     async function openDlg(e: MouseEvent) 
     {
       const selected = await open({
@@ -17,7 +27,18 @@
         multiple: true
       });
 
-      console.log(selected);
+      let onlyNames = new Array<string>();
+
+      if (Array.isArray(selected))
+      {
+        selected.forEach( (val) => {
+          onlyNames.push(extractFileName(val))
+        })
+      }
+
+      fileNames.set(onlyNames);
+      
+      console.log(fileNames);
     };
 
       
@@ -25,14 +46,11 @@
 
 <button 
   on:click={ (evt) => openDlg(evt)} > 
-  Click to browse for files
+  Select files
 </button>
 
-<input type="file" id="fileElem" class="hidden" />
 
 <style>
-  .hidden {
-   display: none;
-  }
+ 
 
 </style>

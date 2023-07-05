@@ -33,7 +33,7 @@ export class tokenList
       }
     })
 
-    console.log(this.tokenVisibility);
+    // console.log(this.tokenVisibility);
   }
 
   constructor (filename: string, delims: string)
@@ -79,7 +79,7 @@ export class tokenList
         break;
     }
   
-    console.log(this.tokenVisibility);
+    // console.log(this.tokenVisibility);
 
     return this.generateBoolList();
   }

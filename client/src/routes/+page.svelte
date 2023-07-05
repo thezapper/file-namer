@@ -11,7 +11,7 @@
   import { invoke } from '@tauri-apps/api/tauri';
   //const invoke = window.__TAURI__.invoke
 
-  let fileList: string[] = [];
+  // let fileList: string[] = [];
 
 
   async function getData() {
@@ -22,19 +22,19 @@
 
     invoke('my_custom_command', { msg: 'Hello!' })
 
-    return axios
-      .get("http://127.0.0.1:3000/list", params)
-      .then((response) => {
-        console.log("Promise resolved:");
-        fileList = response.data.files;
-        // console.dir(data);
-      })
-      .catch((err) => {
-        console.log("Error:", err);
-      })
-      .finally(() => {
-        console.log("And finally...");
-      });
+    // return axios
+    //   .get("http://127.0.0.1:3000/list", params)
+    //   .then((response) => {
+    //     console.log("Promise resolved:");
+    //     fileList = response.data.files;
+    //     // console.dir(data);
+    //   })
+    //   .catch((err) => {
+    //     console.log("Error:", err);
+    //   })
+    //   .finally(() => {
+    //     console.log("And finally...");
+    //   });
   }
 
   onMount(() => {
@@ -57,5 +57,5 @@
 
 <!-- redraw the list if the delims change -->
 {#key delims}
-  <FileList {delims} {fileList} addMode={false} />
+  <FileList {delims} />
 {/key}
