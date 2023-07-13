@@ -1,8 +1,9 @@
 <script lang="ts">
-  import axios from "axios"
+  // import axios from "axios"
   // import { createEventDispatcher } from 'svelte';
-  import { repeatedWords } from './stores'
+  import { repeatedWords, directory } from './stores'
   import { tokenList } from "./token-list";
+  import { renameFile, BaseDirectory } from '@tauri-apps/api/fs';
 
   export let idx: number;
   export let fileName: string;
@@ -13,6 +14,7 @@
   let filePhrase = new tokenList(fileName, delims);
   let finalName = filePhrase.generateFilename();
   let tokens = filePhrase.tokens;
+  let dir = "";
 
   let tokenRtClick = (i: number, evt?: MouseEvent) =>
   {
@@ -42,6 +44,8 @@
     finalName = filePhrase.generateFilename();
   })
 
+  directory.subscribe( newDir => dir = newDir);
+
   let tokenClick = (i: number, evt?: MouseEvent) =>
   {
     visibleTokens = filePhrase.loneToken(i);
@@ -50,16 +54,19 @@
 
   let rename = (orgName: string, newName: string) =>
   {
-    axios.post('http://127.0.0.1:3000/rename', {
-      orgName: orgName,
-      newName: newName
-      })
-      .then(function (response) {
-        console.log(response);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+    console.log(orgName, newName);
+
+    console.log(dir + newName);
+    // axios.post('http://127.0.0.1:3000/rename', {
+    //   orgName: orgName,
+    //   newName: newName
+    //   })
+    //   .then(function (response) {
+    //     console.log(response);
+    //   })
+    //   .catch(function (error) {
+    //     console.log(error);
+    //   });
   }
 
 </script>

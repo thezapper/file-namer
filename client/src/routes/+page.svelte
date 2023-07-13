@@ -7,12 +7,7 @@
   import FileSelect from "./file-select.svelte";
   import axios from "axios";
 
-  import { readDir, BaseDirectory } from "@tauri-apps/api/fs";
   import { invoke } from '@tauri-apps/api/tauri';
-  //const invoke = window.__TAURI__.invoke
-
-  // let fileList: string[] = [];
-
 
   async function getData() {
     const params = {

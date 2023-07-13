@@ -1,7 +1,7 @@
 <script lang="ts">
   import { onMount } from "svelte";
   import { open } from '@tauri-apps/api/dialog';
-  import { fileNames } from './stores';
+  import { fileNames, directory } from './stores';
 
   // let theWindow: any;
   // let fileElem: HTMLInputElement | null;
@@ -34,10 +34,14 @@
         selected.forEach( (val) => {
           onlyNames.push(extractFileName(val))
         })
+
+        let lastSlash = selected[0].lastIndexOf('\\');
+        let dir = selected[0].substring(0, lastSlash + 1);
+        directory.set(dir);
+        fileNames.set(onlyNames);
       }
 
-      fileNames.set(onlyNames);
-      
+
       console.log(fileNames);
     };
 
