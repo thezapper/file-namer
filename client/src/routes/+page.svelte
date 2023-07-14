@@ -10,32 +10,38 @@
   import { invoke } from '@tauri-apps/api/tauri';
 
   async function getData() {
-    const params = {
-      mode: "cors",
-      headers: { "Content-Type": "application/json" },
-    };
-
-    invoke('my_custom_command', { msg: 'Hello!' })
+    // const params = {
+    //   mode: "cors",
+    //   headers: { "Content-Type": "application/json" },
+    // };
 
     // return axios
     //   .get("http://127.0.0.1:3000/list", params)
     //   .then((response) => {
-    //     console.log("Promise resolved:");
-    //     fileList = response.data.files;
+    //       console.log("Promise resolved:");
+    //       fileList = response.data.files;
     //     // console.dir(data);
     //   })
     //   .catch((err) => {
-    //     console.log("Error:", err);
-    //   })
-    //   .finally(() => {
-    //     console.log("And finally...");
-    //   });
-  }
+    //       console.log("Error:", err);
+    //     })
+    //     .finally(() => {
+    //         console.log("And finally...");
+    //       });
+      }
+      
+    onMount(() => 
+    {
+      console.log("Page mounted:");
 
-  onMount(() => {
-    console.log("Pre getData");
-    getData();
-    console.log("Post getData");
+      if (window.__TAURI__ !== undefined)
+      {
+        invoke('my_custom_command', { msg: 'Hello!!!' })
+      }
+      else
+      {
+        getData();
+      }
   });
 
   let delims = "-. ";

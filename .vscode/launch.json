@@ -5,16 +5,14 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Attach to Edge",
+      "name": "Debug Tauri JS",
       "type": "msedge",
       "port": 9222,
-      "request": "attach",
-      "runtimeExecutable": "${workspaceFolder}/client/src-tauri/target/debug/file-namer.exe",
-      "env": {
-      "Path": "%path%;e:/path/to/your/build/location; " 
-        },
       "useWebView": true,
-      "webRoot": "${workspaceFolder}"
+      "request": "attach",
+      "url": "http://localhost:3001",
+      "webRoot": "${workspaceFolder}/client/src",
+      "preLaunchTask": "js:debug"
     },
     {
       "name": "Attach Server",
@@ -33,7 +31,7 @@
         "**/node_modules/**"
       ],
       "type": "chrome",
-      "url": "https://localhost:3001",
+      "url": "http://localhost:3001",
       "webRoot": "${workspaceFolder}/client/src"
     },
     {
@@ -50,11 +48,11 @@
     {
       "type": "lldb",
       "request": "launch",
-      "name": "Tauri Development Debug",
+      "name": "Debug Tauri Rust",
       "cargo": {
         "args": [
           "build",
-          "--manifest-path=${workspaceFolder}/client/src-tauri/Cargo.toml",
+          "--manifest-path=${workspaceFolder}\\client\\src-tauri\\Cargo.toml",
           "--no-default-features"
         ]
       },
@@ -66,7 +64,11 @@
       "request": "launch",
       "name": "Tauri Production Debug",
       "cargo": {
-        "args": ["build", "--release", "--manifest-path=./src-tauri/Cargo.toml"]
+        "args": [
+          "build",
+          "--release",
+          "--manifest-path=${workspaceFolder}\\client\\src-tauri\\Cargo.toml"
+        ]
       },
       // task for the `beforeBuildCommand` if used, must be configured in `.vscode/tasks.json`
       "preLaunchTask": "ui:build"

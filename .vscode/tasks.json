@@ -22,6 +22,19 @@
       "args": ["--prefix", "./client", "start"]
     },
     {
+      "label": "js:debug",
+      "type": "shell",
+      "isBackground": true,
+      "command": "npm",
+      "args": [
+        "--prefix",
+        "./client",
+        "run",
+        "tauri",
+        "dev"
+      ]
+    },
+    {
       "label": "ui:build",
       "type": "shell",
       // change this to your `beforeBuildCommand`:
