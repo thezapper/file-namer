@@ -22,6 +22,7 @@
 
     async function openDlg(e: MouseEvent) 
     {
+      // this is the Rust function for the open dialog
       const selected = await open({
         directory:false,
         multiple: true

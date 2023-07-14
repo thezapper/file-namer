@@ -3,7 +3,7 @@
   // import { createEventDispatcher } from 'svelte';
   import { repeatedWords, directory } from './stores'
   import { tokenList } from "./token-list";
-  import { renameFile, BaseDirectory } from '@tauri-apps/api/fs';
+  import { renameFile } from '@tauri-apps/api/fs';
 
   export let idx: number;
   export let fileName: string;
@@ -52,11 +52,18 @@
     finalName = filePhrase.generateFilename();
   }
 
-  let rename = (orgName: string, newName: string) =>
+  let rename = async (orgName: string, newName: string) =>
   {
-    console.log(orgName, newName);
-
-    console.log(dir + newName);
+    renameFile(dir + orgName, dir + newName)
+    .then( (resp) => {
+      console.log(resp);
+    })
+    .catch( (err) => {
+      console.log(err);
+      // TODO - Make a toast or dialog
+      alert("Something seems to have gone wrong, here is the message.\n" + err)
+    })
+    
     // axios.post('http://127.0.0.1:3000/rename', {
     //   orgName: orgName,
     //   newName: newName
