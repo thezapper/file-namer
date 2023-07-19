@@ -1,6 +1,6 @@
 # file-namer
 
-A useful app to read a load of oddly named files, for example `Gary Gray - Some.Book.Title.00._.ABC Best-EVAH - More Random Text, The`.
+A useful app to read a load of oddly named files, for example `Gary Gray - Some.Book.Title.00._.ABC Best-EVAH - More Random Text, The.epub`.
 
 It will split the names up based on a set of token delimiters and make them easier to remove the extra words and rename the files.
 
@@ -25,6 +25,7 @@ I worked out how to run the app in Tauri and debug the web app in VS code.  It's
 - [ ] Ability to add text to filenames
 - [ ] Reorder words
 - [ ] Modal Dialog or Toasts
+- [ ] Build exe with Github action
 
 `*` I ended up changing this to select files instead of a directory so the user could choose specific items and avoid files or directories they don't want.
 
