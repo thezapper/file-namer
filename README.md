@@ -12,6 +12,9 @@ Tauri.  Convert the app to a desktop app with access to the local file system.
 
 I worked out how to run the app in Tauri and debug the web app in VS code.  It's also easy to debug the Rust code, but you can't do both at the same time.  Not that you'd really want to.
 
+## Plan C - NEW!
+It turns out the file system Web API can access and modify local files without needing to upload them.  I should be able to make this into a normal hosted webapp rather than the compilied Tauri exe which I can never find when I need it.
+
 ## ToDo:
 
 - [x] List directory
